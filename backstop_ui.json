@@ -59,8 +59,9 @@
     ]
   },
   "engineFlags": [],
-  "asyncCaptureLimit": 3,
-  "asyncCompareLimit": 10,
+  "asyncCaptureLimit": 2,
+  "asyncCompareLimit": 4,
+  "misMatchThreshold": 1,
   "debug": false,
   "debugWindow": false,
   "cliExitOnFail": true
