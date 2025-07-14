@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "backstopjs": "^6.3.23",
+    "backstopjs": "^6.3.25",
     "dotenv": "^8.0.0"
   },
   "scripts": {
