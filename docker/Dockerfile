@@ -1,4 +1,4 @@
-FROM public.ecr.aws/unocha/debian-snap-base:20-debian
+FROM public.ecr.aws/unocha/debian-snap-base:22-debian
 
 ARG VCS_REF
 ARG VCS_URL
