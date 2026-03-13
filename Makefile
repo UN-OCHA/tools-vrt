@@ -1,10 +1,11 @@
 # Variables. Yes.
 DOCKER=docker
-DOCKER_BUILDKIT=0
+VERSION=local
+ORGANISATION=public.ecr.aws/unocha
 
 # The main build recipe.
 build:  clean
-	DOCKER_BUILDKIT=$(DOCKER_BUILDKIT) $(DOCKER) build \
+	$(DOCKER) buildx build \
 				--build-arg BRANCH_ENVIRONMENT=$(NODE_ENV) \
 				--build-arg VCS_REF=`git rev-parse --short HEAD` \
 				--build-arg VCS_URL=`git config --get remote.origin.url | sed 's#git@github.com:#https://github.com/#'` \
@@ -12,11 +13,15 @@ build:  clean
 				--build-arg GITHUB_ACTOR=`whoami` \
 				--build-arg GITHUB_REPOSITORY=`git config --get remote.origin.url` \
 				--build-arg GITHUB_SHA=`git rev-parse --short HEAD` \
-		. --file docker/Dockerfile --tag public.ecr.aws/unocha/vrt:local \
+			--load --platform linux/arm64,linux/amd64 \
+		. --file docker/Dockerfile --tag $(ORGANISATION)/unocha/vrt:$(VERSION) \
 		2>&1 | tee buildlog.txt
 
 clean:
 	rm -rf ./buildlog.txt
+
+login:
+	aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin $(ORGANISATION)
 
 # Always build, never claim cache.
 .PHONY: build
