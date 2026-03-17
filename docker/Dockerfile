@@ -24,6 +24,7 @@ LABEL info.humanitarianresponse.build.date=$BUILD_DATE \
 # Ensure that puppeteer downloads the chromium version it thinks it needs by
 # setting PUPPETEER_SKIP_CHROMIUM_DOWNLOAD to empty.
 ENV NODE_ENV=production \
+    PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium \
     PUPPETEER_SKIP_CHROMIUM_DOWNLOAD= \
     REF_URI=http://local.example.com \
     TEST_URI=https://www.example.com
@@ -36,7 +37,7 @@ RUN \
     rm -rf .env && \
     apt-get -qy update && \
     apt-get -qy dist-upgrade && \
-    apt-get -qy install --no-install-recommends bash google-chrome-stable && \
+    apt-get -qy install --no-install-recommends bash chromium && \
     apt-get -qy install libx11-xcb1 libxtst6 libxss1 libxshmfence1 && \
     apt-get -qy clean && \
     rm -rf /var/cache/apt/lists/*

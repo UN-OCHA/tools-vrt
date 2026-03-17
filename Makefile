@@ -1,6 +1,6 @@
 # Variables. Yes.
 DOCKER=docker
-VERSION=local
+VERSION=24-chromium-dev
 ORGANISATION=public.ecr.aws/unocha
 
 # The main build recipe.
@@ -13,8 +13,8 @@ build:  clean
 				--build-arg GITHUB_ACTOR=`whoami` \
 				--build-arg GITHUB_REPOSITORY=`git config --get remote.origin.url` \
 				--build-arg GITHUB_SHA=`git rev-parse --short HEAD` \
-			--load --platform linux/arm64,linux/amd64 \
-		. --file docker/Dockerfile --tag $(ORGANISATION)/unocha/vrt:$(VERSION) \
+			--load --push --platform linux/arm64,linux/amd64 \
+		. --file docker/Dockerfile --tag $(ORGANISATION)/vrt:$(VERSION) \
 		2>&1 | tee buildlog.txt
 
 clean:
