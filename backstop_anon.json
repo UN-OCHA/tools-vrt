@@ -37,9 +37,12 @@
     "ignoreHTTPSErrors": true,
     "args": [
       "--no-sandbox",
-      "--disable-gpu",
       "--disable-setuid-sandbox",
-      "--disable-dev-shm-usage"
+      "--disable-dev-shm-usage",
+      "--ignore-gpu-blocklist",
+      "--enable-unsafe-swiftshader",
+      "--use-gl=angle",
+      "--use-angle=swiftshader"
     ]
   },
   "engineFlags": [],
